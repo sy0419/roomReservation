@@ -47,6 +47,7 @@ public interface RoomService {
      * Delete room information by ID.
      * 
      * @param id 삭제할 방 ID / Room ID to delete
+     * @return 
      */
     void deleteRoom(Long id);
 }
