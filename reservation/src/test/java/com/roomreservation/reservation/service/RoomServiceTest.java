@@ -17,7 +17,7 @@ public class RoomServiceTest {
     private RoomRepository roomRepository;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         // Mockito의 @Mock 필드를 초기화합니다.
         // Initialize @Mock fields of Mockito
         MockitoAnnotations.openMocks(this);
