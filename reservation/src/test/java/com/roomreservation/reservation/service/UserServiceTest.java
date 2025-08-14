@@ -19,6 +19,7 @@ import com.roomreservation.reservation.domain.User;
 import com.roomreservation.reservation.repository.UserRepository;
 
 public class UserServiceTest {
+
     @Mock
     private UserRepository userRepository;
 
@@ -27,11 +28,13 @@ public class UserServiceTest {
 
     @BeforeEach
     public void setup() {
+        // Mockito 초기화 / Initialize Mockito mocks
         MockitoAnnotations.openMocks(this);
     }
 
     @Test
     void testRegiserUser_Success() {
+        // 회원가입 성공 테스트 / Test for successful user registration
         User user = new User();
         user.setEmail("test@example.com");
         user.setPassword("1234");
@@ -41,7 +44,7 @@ public class UserServiceTest {
 
         User result = userService.registerUser(user);
 
-        assertNotNull(result);
+        assertNotNull(result); // 저장된 유저가 null이 아님 / User is not null
         assertEquals("test@example.com", result.getEmail());
 
         verify(userRepository).findByEmail("test@example.com");
@@ -50,16 +53,16 @@ public class UserServiceTest {
 
     @Test
     void testLoginUser_Success() {
+        // 로그인 성공 테스트 / Test for successful login
         User user = new User();
         user.setEmail("test@example.com");
         user.setPassword("1234");
 
         when(userRepository.findByEmail("test@example.com")).thenReturn(Optional.of(user));
-        
+
         User login = userService.login("test@example.com", "1234");
 
         assertNotNull(login);
-        
         assertEquals("test@example.com", login.getEmail());
         assertEquals("1234", login.getPassword());
 
@@ -68,6 +71,7 @@ public class UserServiceTest {
 
     @Test
     void testLoginUserNotFind_failure() {
+        // 로그인 실패 - 이메일 없음 / Login failure - email not found
         User user = new User();
         user.setEmail("test@example.com");
         user.setPassword("1234");
@@ -85,6 +89,7 @@ public class UserServiceTest {
 
     @Test
     void testLoginUserUncorrectPassword_failure() {
+        // 로그인 실패 - 비밀번호 틀림 / Login failure - incorrect password
         User user = new User();
         user.setEmail("test@example.com");
         user.setPassword("1234");
@@ -92,7 +97,7 @@ public class UserServiceTest {
         when(userRepository.findByEmail("test@example.com")).thenReturn(Optional.of(user));
 
         Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
-            userService.login("test@example.com", "12345");
+            userService.login("test@example.com", "12345"); // 잘못된 비밀번호 / Wrong password
         });
 
         assertEquals("Password is not correct.", exception.getMessage());
@@ -102,6 +107,7 @@ public class UserServiceTest {
 
     @Test
     void testGetAllUsers() {
+        // 전체 사용자 조회 테스트 / Test for retrieving all users
         List<User> userList = new ArrayList<>();
         User user1 = new User();
         user1.setEmail("test@example.com");
@@ -121,13 +127,15 @@ public class UserServiceTest {
 
     @Test
     void getUserById_ShouldReturnUser_WhenIdExists() {
+        // ID로 유저 조회 성공 테스트 / Test for retrieving user by ID
         User user = new User();
         user.setEmail("test@example.com");
         user.setPassword("1234");
 
-        when(userRepository.findById(1L)).thenReturn(Optional.of(user)); 
+        when(userRepository.findById(1L)).thenReturn(Optional.of(user));
 
         User results = userService.getUserById(1L);
+
         assertEquals("test@example.com", results.getEmail());
         assertEquals("1234", results.getPassword());
 
