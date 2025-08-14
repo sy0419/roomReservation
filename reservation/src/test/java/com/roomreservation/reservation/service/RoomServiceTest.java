@@ -73,9 +73,10 @@ public class RoomServiceTest {
 
         // addRoom 호출 시 IllegalArgumentException이 발생하는지 확인
         // Verify that IllegalArgumentException is thrown when addRoom is called
-        assertThrows(IllegalArgumentException.class, () -> {
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
             roomService.addRoom(room);
         });
+        assertEquals("Price must be non-negative.", exception.getMessage());
     }
 
     @Test
@@ -89,9 +90,10 @@ public class RoomServiceTest {
 
         // addRoom 호출 시 IllegalArgumentException이 발생하는지 확인
         // Verify that IllegalArgumentException is thrown when addRoom is called
-        assertThrows(IllegalArgumentException.class, () -> {
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
             roomService.addRoom(room);
         });
+        assertEquals("MaxPeople must be non-negative.", exception.getMessage());
     }
 
     @Test
