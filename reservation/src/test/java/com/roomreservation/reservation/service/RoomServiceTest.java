@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.mockito.ArgumentMatchers.any;
@@ -59,6 +60,38 @@ public class RoomServiceTest {
         assertEquals("Room", savedRoom.getName()); // 이름 확인
         assertEquals(100, savedRoom.getPrice());   // 가격 확인
         assertEquals(2, savedRoom.getMaxPeople()); // 최대 인원 확인
+    }
+
+    @Test
+    // 가격이 음수일 때 IllegalArgumentException이 발생하는지 테스트합니다.
+    // Tests if IllegalArgumentException is thrown when the price is negative.
+    void addRoom_ShouldThrowException_WhenPriceIsNegative() {
+        Room room = new Room();
+        room.setName("Room");
+        room.setPrice(-100);
+        room.setMaxPeople(3);
+
+        // addRoom 호출 시 IllegalArgumentException이 발생하는지 확인
+        // Verify that IllegalArgumentException is thrown when addRoom is called
+        assertThrows(IllegalArgumentException.class, () -> {
+            roomService.addRoom(room);
+        });
+    }
+
+    @Test
+    // 최대 인원이 1 미만일 때 IllegalArgumentException이 발생하는지 테스트합니다.
+    // Tests if IllegalArgumentException is thrown when maxPeople is less than one.
+    void addRoom_ShouldThrowException_WhenMaxPeopleLessThanOne() {
+        Room room = new Room();
+        room.setName("Room");
+        room.setPrice(100);
+        room.setMaxPeople(-2);
+
+        // addRoom 호출 시 IllegalArgumentException이 발생하는지 확인
+        // Verify that IllegalArgumentException is thrown when addRoom is called
+        assertThrows(IllegalArgumentException.class, () -> {
+            roomService.addRoom(room);
+        });
     }
 
     @Test
