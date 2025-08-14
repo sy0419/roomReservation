@@ -31,7 +31,7 @@ public class RoomServiceImpl implements RoomService {
             throw new IllegalArgumentException("Price must be non-negative.");
         }
         if (room.getMaxPeople() < 1) {
-            throw new IllegalArgumentException("Max people must be at least 1.");
+            throw new IllegalArgumentException("MaxPeople must be non-negative.");
         }
         return roomRepository.save(room);
     }
