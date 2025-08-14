@@ -75,11 +75,11 @@ public class User {
         this.password = password;
     }
 
-    public String getphoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setphoneNumber(String phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 }
