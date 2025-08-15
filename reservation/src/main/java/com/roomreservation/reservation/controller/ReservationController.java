@@ -2,6 +2,7 @@ package com.roomreservation.reservation.controller;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -82,7 +83,8 @@ public class ReservationController {
      * @return 취소된 예약 객체 / cancelled reservation
      */
     @DeleteMapping("/{id}")
-    public Reservation cancelReservation(@PathVariable Long id) {
-        return reservationService.cancelReservation(id);
+    public ResponseEntity<Void> cancelReservation(@PathVariable Long id) {
+        reservationService.cancelReservation(id); 
+        return ResponseEntity.noContent().build(); // 204 No Content 반환
     }
 }
