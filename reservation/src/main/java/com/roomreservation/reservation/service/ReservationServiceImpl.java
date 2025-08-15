@@ -6,18 +6,28 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.roomreservation.reservation.domain.Reservation;
+import com.roomreservation.reservation.domain.Room;
+import com.roomreservation.reservation.domain.User;
 import com.roomreservation.reservation.repository.ReservationRepository;
+import com.roomreservation.reservation.repository.RoomRepository;
+import com.roomreservation.reservation.repository.UserRepository;
 
 @Service
 public class ReservationServiceImpl implements ReservationService {
     private final ReservationRepository reservationRepository;
+    private final UserRepository userRepository;   
+    private final RoomRepository roomRepository;    
 
     // 생성자 주입(Constructor injection)
     // Constructor injection of ReservationRepository
-    public ReservationServiceImpl(ReservationRepository reservationRepository) {
+    public ReservationServiceImpl(ReservationRepository reservationRepository,
+                                  UserRepository userRepository,
+                                  RoomRepository roomRepository) {
         this.reservationRepository = reservationRepository;
+        this.userRepository = userRepository;
+        this.roomRepository = roomRepository;
     }
-
+    
     /**
      * 새로운 예약을 추가합니다.
      * Adds a new reservation.
@@ -32,6 +42,16 @@ public class ReservationServiceImpl implements ReservationService {
             || reservation.getNumberOfPeople() < 1) {
             throw new IllegalArgumentException("Check your reservation.");
         }
+        // user와 room이 실제 DB에 있는지 조회
+        User user = userRepository.findById(reservation.getUser().getId())
+            .orElseThrow(() -> new IllegalArgumentException("User does not exist."));
+        Room room = roomRepository.findById(reservation.getRoom().getId())
+            .orElseThrow(() -> new IllegalArgumentException("Room does not exist."));
+
+        // 조회된 엔티티로 reservation의 user, room 세팅
+        reservation.setUser(user);
+        reservation.setRoom(room);
+
         return reservationRepository.save(reservation);
     }
 
