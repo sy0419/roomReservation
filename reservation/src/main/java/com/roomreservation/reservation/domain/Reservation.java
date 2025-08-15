@@ -26,7 +26,7 @@ public class Reservation {
     private LocalDate checkInDate;
 
     // 체크아웃 날짜 Check out date
-    private LocalDate checkoutDate;
+    private LocalDate checkOutDate;
 
     // 예약 인원 수 number of people
     private int numberOfPeople;
@@ -72,11 +72,11 @@ public class Reservation {
     }
 
     public LocalDate getCheckOutDate() {
-        return checkoutDate;
+        return checkOutDate;
     }
 
-    public void setCheckOutDate(LocalDate checkoutDate) {
-        this.checkoutDate = checkoutDate;
+    public void setCheckOutDate(LocalDate checkOutDate) {
+        this.checkOutDate = checkOutDate;
     }
 
     public int getNumberOfPeople() {
