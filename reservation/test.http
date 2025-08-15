@@ -1,0 +1,95 @@
+### 회원가입 테스트
+POST http://localhost:8080/api/users/register
+Content-Type: application/json
+
+{
+  "name": "Harry Potter",
+  "email": "harry@example.com",
+  "password": "1234",
+  "role": "USER",
+  "phoneNumber": "010-1234-5678"
+}
+
+### 로그인 테스트
+POST http://localhost:8080/api/users/login
+Content-Type: application/json
+
+{
+  "email": "harry@example.com",
+  "password": "1234"
+}
+
+### 모든 사용자 조회 테스트
+GET http://localhost:8080/api/users
+Accept: application/json
+
+### 특정 사용자 조회 테스트
+GET http://localhost:8080/api/users/1
+Accept: application/json
+
+### 객실 생성 테스트
+POST http://localhost:8080/api/rooms
+Content-Type: application/json
+
+{
+  "name": "Deluxe Room",
+  "description": "A spacious room with ocean view",
+  "price": 150,
+  "maxPeople": 2 
+}
+
+### 모든 객실 조회 테스트
+GET http://localhost:8080/api/rooms
+Accept: application/json
+
+### 모든 객실 조회 테스트
+GET http://localhost:8080/api/rooms/1
+Accept: application/json
+
+### 객실 수정 테스트
+PUT http://localhost:8080/api/rooms/1
+Content-Type: application/json
+
+{
+  "name": "Deluxe Room - Updated",
+  "description": "Updated description: includes breakfast",
+  "price": 170,
+  "maxPeople": 3
+}
+
+### 객실 삭제 테스트
+DELETE http://localhost:8080/api/rooms/1
+
+### 예약 생성 테스트 (회원가입 테스트 > 객실 생성 테스트 후 실행)
+POST http://localhost:8080/api/reservations
+Content-Type: application/json
+
+{
+  "user": { "id": 1 },
+  "room": { "id": 1 },
+  "checkInDate": "2025-08-20",
+  "checkOutDate": "2025-08-22",
+  "numberOfPeople": 2,
+  "isApproved": false
+}
+
+### 예약 수정 테스트
+PUT http://localhost:8080/api/reservations/1
+Content-Type: application/json
+
+{
+  "user": { "id": 1 },
+  "room": { "id": 1 },
+  "checkInDate": "2025-08-25",
+  "checkOutDate": "2025-08-28",
+  "numberOfPeople": 3,
+  "isApproved": true
+}
+
+### 특정 예약 조회 테스트
+GET http://localhost:8080/api/reservations/1
+Accept: application/json
+
+### 예약 삭제 테스트
+DELETE http://localhost:8080/api/reservations/1
+
