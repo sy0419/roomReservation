@@ -30,7 +30,7 @@ public class ReservationServiceImpl implements ReservationService {
             || reservation.getCheckInDate().isBefore(LocalDate.now())
             || reservation.getCheckOutDate().isBefore(reservation.getCheckInDate())
             || reservation.getNumberOfPeople() < 1) {
-            throw new IllegalArgumentException("The reservation does not exist.");
+            throw new IllegalArgumentException("Check your reservation.");
         }
         return reservationRepository.save(reservation);
     }
