@@ -92,4 +92,3 @@ Accept: application/json
 
 ### 예약 삭제 테스트
 DELETE http://localhost:8080/api/reservations/1
-
